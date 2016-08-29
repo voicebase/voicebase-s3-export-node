@@ -1,0 +1,31 @@
+{
+  "name": "voicebase-s3-export-node",
+  "version": "0.1.0",
+  "description": "Node.js proof-of-concept for VoiceBase S3 export",
+  "main": "index.js",
+  "dependencies": {
+    "command-line-args": "^3.0.1",
+    "command-line-usage": "^3.0.3",
+    "node-ini": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "chai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voicebase/voicebase-s3-export-node.git"
+  },
+  "keywords": [
+    "node",
+    "S3",
+    "VoiceBase",
+    "xport"
+  ],
+  "author": "jbocharov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/voicebase/voicebase-s3-export-node/issues"
+  },
+  "homepage": "https://github.com/voicebase/voicebase-s3-export-node#readme"
+}
