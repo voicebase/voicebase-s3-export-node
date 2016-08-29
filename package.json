@@ -4,6 +4,7 @@
   "description": "Node.js proof-of-concept for VoiceBase S3 export",
   "main": "index.js",
   "dependencies": {
+    "aws-sdk": "^2.5.3",
     "command-line-args": "^3.0.1",
     "command-line-usage": "^3.0.3",
     "node-ini": "^1.0.0"
