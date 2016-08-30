@@ -12,8 +12,8 @@ module.exports = class S3UrlPreSigner {
 
     AWS.config.update({ accessKeyId, secretAccessKey, region });
     this.s3 = new AWS.S3();
-
-    this.bucket = bucket
+    
+    this.bucket = bucket;
   }
 
   signForPut(key) {

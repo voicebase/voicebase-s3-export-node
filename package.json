@@ -7,7 +7,9 @@
     "aws-sdk": "^2.5.3",
     "command-line-args": "^3.0.1",
     "command-line-usage": "^3.0.3",
-    "node-ini": "^1.0.0"
+    "node-ini": "^1.0.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1"
   },
   "devDependencies": {},
   "scripts": {

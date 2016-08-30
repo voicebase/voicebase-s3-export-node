@@ -2,10 +2,14 @@
 
 const path = require('path');
 const S3UrlPreSigner = require('./s3-url-pre-signer');
+const Simulator = require('./simulator');
 
 module.exports = class Uploader {
   constructor(configuration) {
     this.configuration = configuration;
+    if (this.configuration.simulate) {
+      this.simulator = new Simulator();
+    }
   }
 
   run() {
@@ -28,6 +32,10 @@ module.exports = class Uploader {
         console.log('Target Key:', key);
         console.log('Pre-Signed Url:', url);
         console.log();
+      }
+
+      if (this.configuration.simulate) {
+        this.simulator.simulate(basename, url, this.configuration.verbose);
       }
     }
   }

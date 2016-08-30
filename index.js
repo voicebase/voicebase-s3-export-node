@@ -30,9 +30,9 @@ function parseCommandLineOptionsOrExitWithUsage() {
 }
 
 function validateCommandLineOptions(options) {
-  for(let parameter of ['config', 'bucket', 'region', 'file']) {
+  for(let parameter of ['config', 'bucket', 'region', 'file', 'simulate']) {
     if (! (parameter in options)) {
-      throw new Error(`${parameter} is a required parameter`);
+      throw new Error(`--${parameter} is a required parameter`);
     }
   }
 
