@@ -24,7 +24,8 @@ module.exports = class Uploader {
 
       let basename = path.basename(file);
       let key = `${basename}.json`;
-      let url = this.signer.signForPut(key);
+      let ttlSeconds = this.configuration.ttlMinutes * 60;
+      let url = this.signer.signForPut(key, ttlSeconds);
 
       if (this.configuration.verbose) {
         console.log('******************');
@@ -36,11 +37,39 @@ module.exports = class Uploader {
 
       if (this.configuration.simulate) {
         this.simulator.simulate(basename, url, this.configuration.verbose);
+      } else if (this.configuration.dryRun) {
+        this.dryRun(basename, url)
       }
     }
   }
 
-  simulate(url, basename) {
-    
+  dryRun(basename, url) {
+    const configuration = JSON.stringify({
+      "configuration" : {
+        "executor" : "v2",
+        "publish" : {
+          "callbacks" : [
+            {
+              "method" : "PUT", 
+              "url" : url,
+              "include" : [
+                  "transcripts", 
+                  "keywords", 
+                  "topics", 
+                  "metadata"
+              ]
+            }
+          ]
+        }
+      }
+    });
+
+    const curl = 
+    `curl --header 'Authorization: Bearer \$token' \\
+    https://apis.voicebase.com/v2-beta/media \\
+    --form media=@${basename} \\
+    --form 'configuration=${configuration}'`;
+
+    console.log(curl);
   }
 }

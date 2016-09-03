@@ -30,7 +30,7 @@ function parseCommandLineOptionsOrExitWithUsage() {
 }
 
 function validateCommandLineOptions(options) {
-  for(let parameter of ['config', 'bucket', 'region', 'file', 'simulate']) {
+  for(let parameter of ['config', 'bucket', 'region', 'file']) {
     if (! (parameter in options)) {
       throw new Error(`--${parameter} is a required parameter`);
     }
@@ -38,6 +38,16 @@ function validateCommandLineOptions(options) {
 
   if (options.file.length < 1) {
     throw new Error('Must have at least one file to process');
+  }
+
+  const isDryRun = 'dry-run' in options;
+  const isSimulate = 'simulate' in options;
+  if (isDryRun && isSimulate) {
+    throw new Error('--dry-run and --simulate are mutually exclusive');
+  }
+
+  if ((! isDryRun) && (! isSimulate)) {
+    throw new Error('One of --dry-run or --simulate is required');
   }
 }
 
@@ -72,6 +82,17 @@ function defineOptions() {
       description: 'Simulate the behavior of PUT callbacks instead of running.'
     },
     {
+      name: 'dry-run',
+      type: Boolean,
+      description: 'Print upload commands to the console instead of running them.'
+    },
+    {
+      name: 'ttl-minutes',
+      type: Number,
+      typeLabel: '[underline]{minutes}',
+      description: 'The Time-To-Live of the pre-signed url in minutes.'
+    },
+    {
       name: 'file',
       type: String,
       typeLabel: '[underline]{file}',
@@ -101,8 +122,12 @@ function showUsageAndExit(optionDefinitions, e) {
     {
       header: 'Example',
       content: 
-        `node index.js --config ~/.s3cfg --bucket my-bucket --region us-east-1 \\
-        --verbose --simulate \\
+        `node index.js \\
+        --config ~/.s3cfg \\
+        --bucket my-bucket \\
+        --region us-east-1 \\
+        --verbose \\
+        --dry-run \\
         alpha.mp3 bravo.mp3 charlie.mp3`
     }
   ];

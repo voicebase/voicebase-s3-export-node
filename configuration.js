@@ -16,5 +16,7 @@ module.exports = class Configuration {
     this.files = options.file;
     this.verbose = options.verbose;
     this.simulate = options.simulate;
+    this.dryRun = options['dry-run'];
+    this.ttlMinutes = options['ttl-minutes'] || 60;
   }
 }

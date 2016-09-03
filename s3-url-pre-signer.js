@@ -16,11 +16,12 @@ module.exports = class S3UrlPreSigner {
     this.bucket = bucket;
   }
 
-  signForPut(key) {
+  signForPut(key, ttlInSeconds) {
     const params = { 
       Bucket: this.bucket, 
       Key: key, 
-      ContentType: 'application/json' 
+      ContentType: 'application/json',
+      Expires: ttlInSeconds
     };
     return this.s3.getSignedUrl('putObject', params);
   }
