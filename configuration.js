@@ -18,5 +18,6 @@ module.exports = class Configuration {
     this.simulate = options.simulate;
     this.dryRun = options['dry-run'];
     this.ttlMinutes = options['ttl-minutes'] || 60;
+    this.attachment = options.attachment;
   }
 }

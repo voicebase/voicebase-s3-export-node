@@ -87,6 +87,11 @@ function defineOptions() {
       description: 'Print upload commands to the console instead of running them.'
     },
     {
+      name: 'attachment',
+      type: Boolean,
+      description: 'Treat as a redacted media attachment signing request.'
+    },
+    {
       name: 'ttl-minutes',
       type: Number,
       typeLabel: '[underline]{minutes}',

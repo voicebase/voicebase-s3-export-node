@@ -23,9 +23,12 @@ module.exports = class Uploader {
     for (let file of this.configuration.files) {
 
       let basename = path.basename(file);
-      let key = `${basename}.json`;
+      let key = this.configuration.attachment
+        ? basename : `${basename}.json`;
       let ttlSeconds = this.configuration.ttlMinutes * 60;
-      let url = this.signer.signForPut(key, ttlSeconds);
+      let contentType = this.configuration.attachment
+        ? 'application/octet-stream' : 'application/json';
+      let url = this.signer.signForPut(key, ttlSeconds, contentType);
 
       if (this.configuration.verbose) {
         console.log('******************');
