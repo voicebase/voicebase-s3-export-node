@@ -15,7 +15,7 @@ new Uploader(config).run();
 
 function parseCommandLineOptionsOrExitWithUsage() {
   const optionDefinitions = defineOptions();
-  
+
   try {
     const options = commandLineArgs(optionDefinitions)
 
@@ -24,8 +24,8 @@ function parseCommandLineOptionsOrExitWithUsage() {
     validateCommandLineOptions(options);
 
     return options;
-  } catch (e) { 
-    showUsageAndExit(optionDefinitions, e); 
+  } catch (e) {
+    showUsageAndExit(optionDefinitions, e);
   }
 }
 
@@ -53,8 +53,8 @@ function validateCommandLineOptions(options) {
 
 function defineOptions() {
   return [
-    { 
-      name: 'config', 
+    {
+      name: 'config',
       type: String,
       typeLabel: '[underline]{file}',
       description: 'An s3cmd-compatible configuration file.'
@@ -98,6 +98,13 @@ function defineOptions() {
       description: 'The Time-To-Live of the pre-signed url in minutes.'
     },
     {
+      name: 'content-type',
+      type: String,
+      typeLabel: '[underline]{content-type}',
+      description: 'The Content-Type for the pre-signed url.'
+
+    },
+    {
       name: 'file',
       type: String,
       typeLabel: '[underline]{file}',
@@ -126,7 +133,7 @@ function showUsageAndExit(optionDefinitions, e) {
     },
     {
       header: 'Example',
-      content: 
+      content:
         `node index.js \\
         --config ~/.s3cfg \\
         --bucket my-bucket \\
@@ -149,6 +156,3 @@ function showUsageAndExit(optionDefinitions, e) {
 
   process.exit(1);
 }
-
-
-

@@ -27,7 +27,7 @@ module.exports = class Uploader {
         ? basename : `${basename}.json`;
       let ttlSeconds = this.configuration.ttlMinutes * 60;
       let contentType = this.configuration.attachment
-        ? 'application/octet-stream' : 'application/json';
+        ? this.configuration.contentType : 'application/json';
       let url = this.signer.signForPut(key, ttlSeconds, contentType);
 
       if (this.configuration.verbose) {
@@ -53,12 +53,12 @@ module.exports = class Uploader {
         "publish" : {
           "callbacks" : [
             {
-              "method" : "PUT", 
+              "method" : "PUT",
               "url" : url,
               "include" : [
-                  "transcripts", 
-                  "keywords", 
-                  "topics", 
+                  "transcripts",
+                  "keywords",
+                  "topics",
                   "metadata"
               ]
             }
@@ -67,7 +67,7 @@ module.exports = class Uploader {
       }
     });
 
-    const curl = 
+    const curl =
     `curl --header 'Authorization: Bearer \$token' \\
     https://apis.voicebase.com/v2-beta/media \\
     --form media=@${basename} \\
